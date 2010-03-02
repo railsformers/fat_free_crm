@@ -1,4 +1,6 @@
+Capfile
 config/database.yml
+config/deploy.rb
 coverage/*
 db/schema.rb
 db/*.sql*
