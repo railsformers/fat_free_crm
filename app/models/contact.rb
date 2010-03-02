@@ -1,16 +1,16 @@
 # Fat Free CRM
 # Copyright (C) 2008-2010 by Michael Dvorkin
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #------------------------------------------------------------------------------
@@ -74,6 +74,24 @@ class Contact < ActiveRecord::Base
   validates_presence_of :last_name, :message => :missing_last_name
   validate :users_for_shared_access
 
+  comma do
+    first_name
+    last_name
+    email
+    phone
+    title
+    department
+    alt_email "Alternative email"
+    mobile
+    business_address :full_address_without_line_breaks => "Address"
+    fax
+    do_not_call
+    blog "Website/Blog"
+    linkedin "LinkedIn"
+    facebook
+    twitter
+  end
+
   # Default values provided through class methods.
   #----------------------------------------------------------------------------
   def self.per_page ; 20                  ; end
@@ -119,7 +137,7 @@ class Contact < ActiveRecord::Base
     %w(first_name last_name title source email alt_email phone mobile blog linkedin facebook twitter do_not_call background_info).each do |name|
       attributes[name] = model.send(name.intern)
     end
-    
+
     contact = Contact.new(attributes)
     contact.business_address = Address.new(:street1 => model.business_address.street1, :street2 => model.business_address.street2, :city => model.business_address.city, :state => model.business_address.state, :zipcode => model.business_address.zipcode, :country => model.business_address.country, :full_address => model.business_address.full_address, :address_type => "Business") unless model.business_address.nil?
 

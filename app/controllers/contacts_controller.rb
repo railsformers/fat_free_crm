@@ -28,6 +28,7 @@ class ContactsController < ApplicationController
     @contacts = get_contacts(:page => params[:page])
 
     respond_to do |format|
+      format.csv  { render :csv => @contacts }
       format.html # index.html.haml
       format.js   # index.js.rjs
       format.xml  { render :xml => @contacts }

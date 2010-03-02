@@ -2,7 +2,8 @@
 
 .title_tools
   = link_to_inline(:create_contact, new_contact_path, :text=> t(:create_contact)) << " | "
-  = link_to_inline(:options, options_contacts_path, :text=> t(:options))
+  = link_to_inline(:options, options_contacts_path, :text=> t(:options)) << " | "
+  = link_to(t(:export), contacts_path(:format => :csv))
 
 .title
   %span#create_contact_title #{t :contacts}

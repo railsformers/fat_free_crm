@@ -37,4 +37,8 @@ class Address < ActiveRecord::Base
     end
   end
 
+  def full_address_without_line_breaks
+    self.full_address.gsub("\n", ";")
+  end
+
 end
